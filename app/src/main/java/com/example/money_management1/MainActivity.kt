@@ -46,7 +46,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.money_management1.screens.LoginScreen
+import com.example.money_management1.screens.SignUpScreen
 import com.example.money_management1.ui.theme.Money_Management1Theme
 import com.example.money_management1.ui.theme.primaryColor
 import com.example.money_management1.ui.theme.whiteBackground
@@ -62,9 +66,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    HomeScreen()
                 }
             }
+        }
+    }
+}
+@Composable
+fun HomeScreen(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = "login"){
+        composable("login"){
+            LoginScreen(navController)
+        }
+        composable("signup"){
+            SignUpScreen(navController)
         }
     }
 }
