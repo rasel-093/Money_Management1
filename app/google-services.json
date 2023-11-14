@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1079749870717",
+    "project_id": "money-management1",
+    "storage_bucket": "money-management1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079749870717:android:57db830140b85641e3dd14",
+        "android_client_info": {
+          "package_name": "com.example.money_management1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyPyz0NQP0WKnMUkEfbEBP-BeZXrJqvjE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
