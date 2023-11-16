@@ -1,5 +1,8 @@
 package com.example.money_management1.screens
 
+import android.content.Context
+import android.content.Intent
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -38,13 +42,15 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.money_management1.LoginActivity
 import com.example.money_management1.R
 import com.example.money_management1.ui.theme.primaryColor
 import com.example.money_management1.ui.theme.whiteBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(navController: NavController){
+fun SignUpScreen(context: ComponentActivity){
+//    val context = LocalContext.current
     val image = painterResource(id = R.drawable.money_bag)
     val name = rememberSaveable {
         mutableStateOf("")
@@ -185,7 +191,11 @@ fun SignUpScreen(navController: NavController){
                 )
                 Spacer(modifier = Modifier.padding(10.dp))
                 Button(
-                    onClick = {  },
+                    onClick = {
+                        val intent = Intent(context,LoginActivity::class.java)
+                        context.startActivity(intent)
+                        context.finish()
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .height(50.dp)
@@ -197,21 +207,20 @@ fun SignUpScreen(navController: NavController){
                     )
                 }
                 Spacer(modifier = Modifier.padding(5.dp))
-                Text(
-                    text = "Login Instead",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp,
-                    color = Color(0xFF485CCA),
-                    modifier= Modifier.clickable(
-                        onClick = {
-                            navController.navigate("login"){
-                                popUpTo = navController.graph.startDestinationId
-                                launchSingleTop = true
-                            }
-                        }
-                    )
-                )
-                Spacer(modifier = Modifier.padding(20.dp))
+//                Text(
+//                    text = "Login Instead",
+//                    fontWeight = FontWeight.Bold,
+//                    fontSize = 14.sp,
+//                    color = Color(0xFF485CCA),
+//                    modifier= Modifier.clickable(
+//                        onClick = {
+//                            val intent = Intent(context,LoginActivity::class.java)
+//                            context.startActivity(intent)
+//                            context.finish()
+//                        }
+//                    )
+//                )
+//                Spacer(modifier = Modifier.padding(20.dp))
             }
         }
     }

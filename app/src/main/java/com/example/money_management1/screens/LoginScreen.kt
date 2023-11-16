@@ -1,5 +1,7 @@
 package com.example.money_management1.screens
 
+import android.content.Intent
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -40,14 +43,17 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.money_management1.MainActivity
 import com.example.money_management1.R
+import com.example.money_management1.SignUpActivity
 import com.example.money_management1.ui.theme.primaryColor
 import com.example.money_management1.ui.theme.whiteBackground
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(navController: NavController){
+fun LoginScreen(context: ComponentActivity){
+    //val context  = LocalContext.current
     val image =   painterResource(id = R.drawable.money_bag)
     val email = rememberSaveable {
         mutableStateOf("")
@@ -131,7 +137,11 @@ fun LoginScreen(navController: NavController){
                 )
                 Spacer(modifier = Modifier.padding(10.dp))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        val intent = Intent(context,MainActivity::class.java)
+                        context.startActivity(intent)
+                        context.finish()
+                    },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .height(50.dp)
@@ -150,10 +160,8 @@ fun LoginScreen(navController: NavController){
                     color = Color(0xFF485CCA),
                     modifier = Modifier.clickable(
                         onClick = {
-                            navController.navigate("signup"){
-                                popUpTo = navController.graph.startDestinationId
-                                launchSingleTop = true
-                            }
+                            val intent = Intent(context, SignUpActivity::class.java)
+                            context.startActivity(intent)
                         }
                     )
                 )
