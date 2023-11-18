@@ -13,7 +13,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.rememberNavController
 import com.example.money_management1.components.FloatingActionBtn
 import com.example.money_management1.components.bottom_navigation_components.BottomNavigationBar
@@ -34,17 +38,31 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
                     Scaffold(
-                        //topBar = { TopAppBar(title = { Text(text = "Money ManageMent") })},
+                        topBar = { TopBar()},
                         bottomBar = { BottomNavigationBar(navController = navController) },
                         floatingActionButton = { FloatingActionBtn()},
                         floatingActionButtonPosition = FabPosition.End
                     ) {innerPadding->
                         NavHostContainer(navController = navController, padding = innerPadding )
+                        //BottomSheet()
                     }
                 }
             }
         }
     }
 }
-
-//  <category android:name="android.intent.category.LAUNCHER" />
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBar(){
+    TopAppBar(
+        title = {
+            Text(
+                text = "Transaction History",
+                color = Color(0xFF008FFF)
+            )
+        },
+        colors = TopAppBarDefaults.smallTopAppBarColors(
+            containerColor = Color(0xFF50E3C2)
+        )
+    )
+}

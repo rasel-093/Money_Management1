@@ -1,9 +1,7 @@
 package com.example.money_management1.model
 
-import androidx.compose.ui.graphics.painter.Painter
-
-data class Item(
-    //var image: Painter,
+data class TrxItem(
+    val id: Int,
     var title: String,
     var details: String,
     var date: String,

@@ -80,4 +80,7 @@ dependencies {
 
     //Compose navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
+    //Compose bottom sheet
+    implementation ("androidx.compose.ui:ui:1.6.0-beta01")
+    implementation ("androidx.compose.material:material:1.6.0-beta01")
 }

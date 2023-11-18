@@ -4,8 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,9 +17,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.money_management1.ui.theme.whiteFont
 
 @Composable
-fun MonthlyIncomeExpenseCard() {
+fun TrxHistoryHeadingCard() {
     OutlinedCard(
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
@@ -39,28 +38,28 @@ fun MonthlyIncomeExpenseCard() {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                CardText(text = "Jan 2023", fontSize = 24, Color(0xFFFFFFFF))
+                CardText(text = "Jan 2023", fontSize = 24, whiteFont)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
-                CardText(text = "Income", fontSize = 16, Color(0xFFFFFFFF))
-                CardText(text = "2000", fontSize = 16, Color(0xFFFFFFFF) )
+                CardText(text = "Income", fontSize = 16, color = whiteFont)
+                CardText(text = "2000", fontSize = 16, color = whiteFont )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
-                CardText(text = "Expenses", fontSize = 16, Color(0xFFFFFFFF) )
-                CardText(text = "1400", fontSize = 16 , Color(0xFFFFFFFF))
+                CardText(text = "Expenses", fontSize = 16, color = whiteFont )
+                CardText(text = "1400", fontSize = 16 , color = whiteFont)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                CardText(text = "Your Balance", fontSize = 16, Color(0xFFFFFFFF) )
-                CardText(text = "10000", fontSize = 16 , Color(0xFFFFFFFF))
+                CardText(text = "Your Balance", fontSize = 16, color = whiteFont )
+                CardText(text = "10000", fontSize = 16 , color = whiteFont)
             }
         }
     }
@@ -68,8 +67,8 @@ fun MonthlyIncomeExpenseCard() {
 
 @Composable
 @Preview
-fun pMonthlyIncomeExpenseCardPreview() {
-    MonthlyIncomeExpenseCard()
+fun TrxHistoryHeadingCardPreview() {
+    TrxHistoryHeadingCard()
 }
 
 @Composable
