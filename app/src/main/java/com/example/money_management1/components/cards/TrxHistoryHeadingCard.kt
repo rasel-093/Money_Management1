@@ -14,18 +14,33 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.money_management1.components.CustomDateTime
+import com.example.money_management1.model.TrxItem
+import com.example.money_management1.ui.theme.redFont
 import com.example.money_management1.ui.theme.whiteFont
 
 @Composable
-fun TrxHistoryHeadingCard() {
+fun TrxHistoryHeadingCard(trxItems: List<TrxItem>) {
+    //To count details for Heading card
+    var totalIncome = 0
+    var totalExpense = 0
+    var currentBalance = 0
+    trxItems.forEachIndexed{index, trxItem ->
+        if(trxItems[index].type){
+            totalIncome = totalIncome + trxItems[index].amount
+            currentBalance += trxItems[index].amount
+        }
+        else {
+            totalExpense = totalExpense + trxItems[index].amount
+            currentBalance -= trxItems[index].amount
+        }
+    }
     OutlinedCard(
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
             .fillMaxWidth()
-            //.padding(10.dp)
     ) {
         Column(
             modifier = Modifier
@@ -38,37 +53,31 @@ fun TrxHistoryHeadingCard() {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                CardText(text = "Jan 2023", fontSize = 24, whiteFont)
+                CardText(text = CustomDateTime().getCurrentMonthYear(), fontSize = 24, whiteFont)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 CardText(text = "Income", fontSize = 16, color = whiteFont)
-                CardText(text = "2000", fontSize = 16, color = whiteFont )
+                CardText(text = totalIncome.toString(), fontSize = 16, color = whiteFont )
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ){
                 CardText(text = "Expenses", fontSize = 16, color = whiteFont )
-                CardText(text = "1400", fontSize = 16 , color = whiteFont)
+                CardText(text =  totalExpense.toString(), fontSize = 16 , color = whiteFont)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                CardText(text = "Your Balance", fontSize = 16, color = whiteFont )
-                CardText(text = "10000", fontSize = 16 , color = whiteFont)
+                CardText(text = "Your Balance", fontSize = 16, color = if (currentBalance<0) redFont else whiteFont )
+                CardText(text = currentBalance.toString(), fontSize = 16 , color = if (currentBalance<0) redFont else whiteFont)
             }
         }
     }
-}
-
-@Composable
-@Preview
-fun TrxHistoryHeadingCardPreview() {
-    TrxHistoryHeadingCard()
 }
 
 @Composable

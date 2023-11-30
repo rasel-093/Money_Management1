@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id ("com.google.devtools.ksp")
 }
 
 android {
@@ -55,7 +56,7 @@ dependencies {
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.8.0")
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.06.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -80,7 +81,19 @@ dependencies {
 
     //Compose navigation
     implementation("androidx.navigation:navigation-compose:2.7.5")
-    //Compose bottom sheet
-    implementation ("androidx.compose.ui:ui:1.6.0-beta01")
-    implementation ("androidx.compose.material:material:1.6.0-beta01")
+
+    // Room components
+    implementation ("androidx.room:room-runtime:2.6.0")
+    ksp ("androidx.room:room-compiler:2.6.0")
+    implementation ("androidx.room:room-ktx:2.6.0")
+
+    // Lifecycle components
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    //ViewMdel
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+
+    //Livedata
+    implementation ("androidx.compose.runtime:runtime-livedata:1.6.0-alpha08")
+
 }

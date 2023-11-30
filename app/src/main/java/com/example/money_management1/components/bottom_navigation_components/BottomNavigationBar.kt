@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 
@@ -38,7 +39,14 @@ fun BottomNavigationBar(navController: NavHostController){
                 // navigate on click
                 onClick = {
                     if(currentRoute != navItem.route){
-                        navController.navigate(navItem.route)
+                        navController.navigate(navItem.route){
+                            //Limit backStack
+                            popUpTo(navController.graph.findStartDestination().id){
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
                     }
                 },
 

@@ -15,3 +15,5 @@ val whiteBackground = Color(0xFFF7F7F7)
 
 val whiteFont = Color(0xFFFFFFFF)
 val blackFont = Color(0xFF2C3F50)
+val redFont = Color(0xFFFF0000)
+val defaultColor = Color(0xFF018786)

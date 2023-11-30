@@ -1,7 +1,5 @@
 package com.example.money_management1.components.cards
 
-import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,13 +17,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.money_management1.TrxDetailsActivity
 import com.example.money_management1.R
 import com.example.money_management1.model.TrxItem
 import com.example.money_management1.ui.theme.blackFont
+import com.example.money_management1.ui.theme.redFont
 
 @Composable
-fun TrxHistoryItemCard(trxItem: TrxItem){
+fun TrxHistoryItemCard(trxItem: TrxItem, index: Int, onClick: (Boolean,Int) -> Unit){
     val context = LocalContext.current
     ElevatedCard (
         shape = RoundedCornerShape(8.dp),
@@ -39,12 +37,7 @@ fun TrxHistoryItemCard(trxItem: TrxItem){
             .fillMaxWidth()
             .padding(top = 5.dp)
             .clickable {
-                val intent = Intent(context, TrxDetailsActivity::class.java)
-                intent.putExtra("id", trxItem.id)
-                context.startActivity(intent)
-                Toast
-                    .makeText(context, "Item Clicked", Toast.LENGTH_SHORT)
-                    .show()
+                onClick(true , index)
             }
     ) {
         Row(
@@ -70,7 +63,11 @@ fun TrxHistoryItemCard(trxItem: TrxItem){
                 ) {
                     CardText(text = trxItem.title, fontSize = 24 , color = blackFont)
                     Row {
-                        CardText(text = "${trxItem.amount}", fontSize = 20, color = blackFont)
+                        CardText(
+                            text = "${trxItem.amount}",
+                            fontSize = 20,
+                            color = if(trxItem.type) blackFont else redFont
+                        )
                         Icon(
                             painter = painterResource(id = R.drawable.taka_icon) ,
                             contentDescription = null,
