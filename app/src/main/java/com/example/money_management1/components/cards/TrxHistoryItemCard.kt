@@ -18,12 +18,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.money_management1.R
-import com.example.money_management1.model.TrxItem
+import com.example.money_management1.model.trxmodel.TrxItem
 import com.example.money_management1.ui.theme.blackFont
 import com.example.money_management1.ui.theme.redFont
 
 @Composable
-fun TrxHistoryItemCard(trxItem: TrxItem, index: Int, onClick: (Boolean,Int) -> Unit){
+fun TrxHistoryItemCard(trxItem: TrxItem, index: Int, onClick: (Boolean, Int) -> Unit){
     val context = LocalContext.current
     ElevatedCard (
         shape = RoundedCornerShape(8.dp),

@@ -1,16 +1,17 @@
-package com.example.money_management1.model
+package com.example.money_management1.model.trxmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.money_management1.model.TrxDB
 import kotlinx.coroutines.launch
 
 class TrxViewModel(application: Application): AndroidViewModel(application) {
     val allTrx: LiveData<List<TrxItem>>
     private val repository: TrxRepository
     init {
-        val trxDao = TrxDB.getInstance(application).taskDao()
+        val trxDao = TrxDB.getInstance(application).trxDao()
         repository = TrxRepository(trxDao)
         allTrx = repository.allTrx
     }
@@ -28,3 +29,4 @@ class TrxViewModel(application: Application): AndroidViewModel(application) {
         viewModelScope.launch { repository.deleteAllTrx() }
     }
 }
+

@@ -1,4 +1,4 @@
-package com.example.money_management1.model
+package com.example.money_management1.model.trxmodel
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

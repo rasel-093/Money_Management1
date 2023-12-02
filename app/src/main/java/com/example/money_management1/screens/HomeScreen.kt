@@ -25,7 +25,7 @@ import com.example.money_management1.components.TopBar
 import com.example.money_management1.components.TrxItemDetails
 import com.example.money_management1.components.cards.TrxHistoryHeadingCard
 import com.example.money_management1.components.cards.TrxHistoryItemCard
-import com.example.money_management1.model.TrxViewModel
+import com.example.money_management1.model.trxmodel.TrxViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,12 +1,12 @@
-package com.example.money_management1.model
+package com.example.money_management1.model.trxmodel
 
 import androidx.lifecycle.LiveData
 
 class TrxRepository(
     private val trxDao: TrxDao
 ) {
+    //For transaction item
     val allTrx: LiveData<List<TrxItem>> = trxDao.getAll()
-
     suspend fun insertTrx(trxItem: TrxItem) {
         trxDao.insert(trxItem)
     }
@@ -23,3 +23,4 @@ class TrxRepository(
         trxDao.deleteAll()
     }
 }
+

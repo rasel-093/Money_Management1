@@ -1,4 +1,4 @@
-package com.example.money_management1.model
+package com.example.money_management1.model.trxmodel
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -10,6 +10,8 @@ import androidx.room.Update
 
 @Dao
 interface TrxDao {
+
+    //Query for Transaction table
     @Query("SELECT * FROM trxItem_table")
     fun getAll(): LiveData<List<TrxItem>>
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -16,7 +16,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.money_management1.components.bottom_navigation_components.BottomNavigationBar
 import com.example.money_management1.components.bottom_navigation_components.NavHostContainer
-import com.example.money_management1.model.TrxViewModel
+import com.example.money_management1.model.trxmodel.TrxViewModel
 import com.example.money_management1.ui.theme.Money_Management1Theme
 
 class MainActivity : ComponentActivity() {

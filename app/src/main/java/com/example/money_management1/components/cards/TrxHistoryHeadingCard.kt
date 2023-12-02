@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.money_management1.components.CustomDateTime
-import com.example.money_management1.model.TrxItem
+import com.example.money_management1.model.trxmodel.TrxItem
 import com.example.money_management1.ui.theme.redFont
 import com.example.money_management1.ui.theme.whiteFont
 

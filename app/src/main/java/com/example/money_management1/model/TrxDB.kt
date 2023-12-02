@@ -4,10 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.money_management1.model.savingmodel.SavingItem
+import com.example.money_management1.model.savingmodel.SavingItemDao
+import com.example.money_management1.model.trxmodel.TrxDao
+import com.example.money_management1.model.trxmodel.TrxItem
 
-@Database(entities = [TrxItem::class], version = 1, exportSchema = false)
+@Database(entities = [TrxItem::class, SavingItem::class], version = 1, exportSchema = false)
 abstract class TrxDB: RoomDatabase() {
-    abstract fun taskDao(): TrxDao
+    abstract fun trxDao(): TrxDao
+    abstract fun savingItemDao(): SavingItemDao
     companion object{
         private var INSTANCE: TrxDB? = null
 

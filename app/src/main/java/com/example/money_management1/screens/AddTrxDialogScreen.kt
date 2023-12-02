@@ -15,8 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.money_management1.components.CustomDatePicker
-import com.example.money_management1.model.TrxItem
-import com.example.money_management1.model.TrxViewModel
+import com.example.money_management1.model.trxmodel.TrxItem
+import com.example.money_management1.model.trxmodel.TrxViewModel
 import com.example.money_management1.ui.theme.defaultColor
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

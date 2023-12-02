@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -23,7 +24,6 @@ fun BottomNavigationBar(navController: NavHostController){
         // color,label color when navigated
         //var previousRoute = navBackStackEntry?.destination?.route
         val currentRoute = navBackStackEntry?.destination?.route
-        var lastItemClicked = "dosage"
 
         // Bottom nav items we declared
         BottomNavItems.bottomNavItem.forEach { navItem ->
@@ -53,9 +53,15 @@ fun BottomNavigationBar(navController: NavHostController){
                 // Icon of navItem
                 icon = {
                     if( currentRoute == navItem.route)
-                        Icon(imageVector = navItem.selectedIcon, contentDescription = navItem.label)
+                        Icon(
+                            painter = painterResource(id = navItem.selectedIcon),
+                            contentDescription = null)
+                        //Icon(imageVector = navItem.selectedIcon, contentDescription = navItem.label)
                     else
-                        Icon(imageVector = navItem.unselectedIcon, contentDescription = navItem.label)
+                        Icon(
+                            painter = painterResource(id = navItem.unselectedIcon) ,
+                            contentDescription = null )
+                        //Icon(imageVector = navItem.unselectedIcon, contentDescription = navItem.label)
                 },
 
                 // label

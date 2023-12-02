@@ -5,9 +5,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.money_management1.model.TrxViewModel
-import com.example.money_management1.screens.AccountScreen
+import com.example.money_management1.model.trxmodel.TrxViewModel
+import com.example.money_management1.screens.GoalsScreen
 import com.example.money_management1.screens.HomeScreen
+import com.example.money_management1.screens.OverViewScreen
 
 
 @Composable
@@ -18,6 +19,7 @@ fun NavHostContainer(
 ) {
     NavHost(navController = navController, startDestination = "home" ){
         composable("home"){ HomeScreen(innerPadding = padding, navController, trxViewModel)}
-        composable("account"){ AccountScreen(innerPadding = padding)}
+        composable("goals"){ GoalsScreen(paddingValues = padding)}
+        composable("overview"){ OverViewScreen(paddingValues = padding)}
     }
 }

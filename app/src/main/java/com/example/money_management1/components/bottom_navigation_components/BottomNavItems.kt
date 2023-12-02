@@ -5,20 +5,27 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import com.example.money_management1.R
 
 object BottomNavItems {
     val bottomNavItem = listOf<BottomNavItem>(
         BottomNavItem(
             label = "Home",
-            unselectedIcon = Icons.Outlined.Home,
-            selectedIcon = Icons.Filled.Home,
+            unselectedIcon = R.drawable.home_icon,
+            selectedIcon = R.drawable.home_icon,
             route = "home"
         ),
         BottomNavItem(
-            label = "Account",
-            unselectedIcon = Icons.Outlined.Person,
-            selectedIcon = Icons.Filled.Person,
-            route = "account"
+            label = "Goals",
+            unselectedIcon = R.drawable.goals,
+            selectedIcon = R.drawable.goals,
+            route = "goals"
+        ),
+        BottomNavItem(
+            label = "overview",
+            unselectedIcon = R.drawable.overview,
+            selectedIcon = R.drawable.overview,
+            route = "overview"
         )
     )
 }

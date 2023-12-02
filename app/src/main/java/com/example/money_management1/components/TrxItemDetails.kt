@@ -18,14 +18,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.money_management1.model.TrxItem
+import com.example.money_management1.model.trxmodel.TrxItem
 import com.example.money_management1.ui.theme.defaultColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TrxItemDetails(trxItem: TrxItem, onDelete: () -> Unit, onClose: ()->Unit) {
     AlertDialog(
-        onDismissRequest = {  }
+        onDismissRequest = {  onClose() }
     ){
         ElevatedCard(
             elevation = CardDefaults.cardElevation(

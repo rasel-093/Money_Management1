@@ -89,11 +89,14 @@ dependencies {
 
     // Lifecycle components
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     //ViewMdel
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0-rc01")
 
     //Livedata
-    implementation ("androidx.compose.runtime:runtime-livedata:1.6.0-alpha08")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.6.0-beta01")
+
+    //Ychart
+    implementation ("co.yml:ycharts:2.1.0")
 
 }
