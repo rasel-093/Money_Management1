@@ -1,6 +1,5 @@
 package com.example.money_management1
 
-import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,13 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.money_management1.components.bottom_navigation_components.BottomNavigationBar
 import com.example.money_management1.components.bottom_navigation_components.NavHostContainer
-import com.example.money_management1.model.trxmodel.TrxViewModel
+import com.example.money_management1.screens.LoginScreen
+import com.example.money_management1.screens.MyApp
 import com.example.money_management1.ui.theme.Money_Management1Theme
 
 class MainActivity : ComponentActivity() {
@@ -24,13 +21,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val taskViewModel: TrxViewModel = viewModel(
-                factory = object : ViewModelProvider.Factory{
-                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                        return TrxViewModel(applicationContext as Application) as  T
-                    }
-                }
-            )
+            val context = applicationContext
             Money_Management1Theme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -38,21 +29,16 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
+                  //  MyApp(navController = navController , context = context )
                     Scaffold(
-//                        topBar = { TopBar()},
-                        bottomBar = { BottomNavigationBar(navController = navController) },
-//                        floatingActionButton = {
-//                            FloatingActionBtn()
-//                        },
-//                        floatingActionButtonPosition = FabPosition.End
+                        bottomBar = { BottomNavigationBar(navController = navController) }
                     ) {innerPadding->
-                        //MyBottomSheetScaffold(navController,innerPadding)
+                     //   LoginScreen(navController)
                         NavHostContainer(
                             navController = navController,
                             padding = innerPadding ,
-                            trxViewModel = taskViewModel
+                            context = context
                             )
-                        //BottomSheet()
                     }
                 }
             }

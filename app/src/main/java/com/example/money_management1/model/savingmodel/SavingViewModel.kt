@@ -4,14 +4,14 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.money_management1.model.TrxDB
+import com.example.money_management1.model.AppDB
 import kotlinx.coroutines.launch
 
 class SavingItemViewModel(application: Application): AndroidViewModel(application) {
     val allSavingItems: LiveData<List<SavingItem>>
     private val savingRepository: SavingRepository
     init {
-        val savingItemDao = TrxDB.getInstance(application).savingItemDao()
+        val savingItemDao = AppDB.getInstance(application).savingItemDao()
         savingRepository = SavingRepository(savingItemDao)
         allSavingItems = savingRepository.allSavingItem
     }

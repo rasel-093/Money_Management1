@@ -10,7 +10,8 @@ data class SavingItem(
     @ColumnInfo("title") val title: String,
     @ColumnInfo("details") val details: String,
     @ColumnInfo("req_amount") val req_amount: Int,
-    @ColumnInfo("current_amount") val current_amount: Int,
+    @ColumnInfo("current_amount") val current_amount: Int = 0,
     @ColumnInfo("is_completed") val isCompleted: Boolean = false,
-    @ColumnInfo("image_path") val image_Path: String?
+    @ColumnInfo("imagePath") val imageUri: String
+    //@ColumnInfo(typeAffinity = ColumnInfo.BLOB) val image: ByteArray?
 )

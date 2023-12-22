@@ -1,10 +1,12 @@
 package com.example.money_management1.screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -14,7 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.PopupProperties
 import com.example.money_management1.components.CustomDatePicker
+import com.example.money_management1.model.ExpenseCategory
+import com.example.money_management1.model.IncomeCategory
+import com.example.money_management1.model.savingmodel.SavingItem
+import com.example.money_management1.model.savingmodel.SavingItemViewModel
 import com.example.money_management1.model.trxmodel.TrxItem
 import com.example.money_management1.model.trxmodel.TrxViewModel
 import com.example.money_management1.ui.theme.defaultColor
@@ -26,7 +33,8 @@ import java.time.format.DateTimeFormatter
 fun AddTrxDialogScreen(
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
-    trxViewModel: TrxViewModel
+    trxViewModel: TrxViewModel,
+    savingItemViewModel: SavingItemViewModel
 ) {
     val context = LocalContext.current
     var trxTitle by rememberSaveable {
@@ -54,6 +62,31 @@ fun AddTrxDialogScreen(
     }
     var isDatePickerOpen by rememberSaveable {
         mutableStateOf(false)
+    }
+    var isDropDownMenuExpanded by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    var dropDownButtonText by rememberSaveable {
+        mutableStateOf("Select Category")
+    }
+    //Income category variable
+    val incomeCategories = IncomeCategory.values().toList()
+    val incomeCategoryList = mutableListOf<String>()
+    for (index in incomeCategories.indices){
+        incomeCategoryList.add(incomeCategories[index].label)
+    }
+    //Expense Category variable
+    val expenseCategories = ExpenseCategory.values().toList()
+    val expenseCategoryList = mutableListOf<String>()
+    for (index in expenseCategories.indices){
+        expenseCategoryList.add(expenseCategories[index].label)
+    }
+    var activeCategorySelector by rememberSaveable {
+        mutableStateOf("")
+    }
+    var selectedCategory by rememberSaveable {
+        mutableStateOf("")
     }
 
     AlertDialog(
@@ -115,6 +148,7 @@ fun AddTrxDialogScreen(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
+                //Income Expense radio buttona
                 Row {
                     trxTypes.forEach { type ->
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -123,7 +157,10 @@ fun AddTrxDialogScreen(
                                 onClick = {
                                     selectedTrxType = type
                                     selectedTrxTypeBool = if(type == trxTypes[0]) true else false
-                                    //Log.d("Selected option", selectedOptionBool.toString())
+                                    activeCategorySelector = type
+                                    selectedCategory = ""
+                                    dropDownButtonText = "Select Category"
+                                    Log.d("Selected option", type)
                                 }
                             )
                             Text(
@@ -135,20 +172,66 @@ fun AddTrxDialogScreen(
                     }
                 }
                 Spacer(modifier = Modifier.height(8.dp))
-
+                IconButton(
+                    onClick = { isDropDownMenuExpanded = true },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(text = dropDownButtonText)
+                        Icon(imageVector = Icons.Filled.ArrowDropDown, contentDescription = null )
+                    }
+                }
+                //Income Expense category selector dropdown
+                DropdownMenu(
+                    expanded = isDropDownMenuExpanded,
+                    onDismissRequest = { isDropDownMenuExpanded = false },
+                    properties = PopupProperties(
+                        focusable = true,
+                        dismissOnBackPress = true,
+                        dismissOnClickOutside = true
+                    ),
+                    modifier = Modifier.height(250.dp)
+                    ) {
+                    if(activeCategorySelector.isNotEmpty()){
+                        val list =  if(activeCategorySelector == "Income") incomeCategoryList else expenseCategoryList
+                        for(i in list.indices){
+                            DropdownMenuItem(
+                                text = { Text(text = list[i]) } ,
+                                onClick = {
+                                    isDropDownMenuExpanded = false
+                                    dropDownButtonText = list[i]
+                                    selectedCategory = list[i]
+                                })
+                        }
+                    }
+                }
             }
         },
         confirmButton = {
             Button(
                 onClick = {
+//                    if(selectedCategory == "Savings"){
+//                        val items = savingItemViewModel.allSavingItems.value
+//                        val item = SavingItem(
+//                            title = items!![0].title,
+//                            details = items[0].details,
+//                            req_amount = items[0].req_amount,
+//                            current_amount = items[0].current_amount+trxAmount.toInt(),
+//                            isCompleted = if(items[0].current_amount >= items[0].req_amount) true else false ,
+//                            imageUri = items[0].imageUri
+//                        )
+//                        Log.d("Saving","$trxAmount added")
+//                        savingItemViewModel.updateSavingItem(item)
+//                    }
                     //Save data to database
-                    if(trxAmount.isNotEmpty()  && trxTitle.isNotEmpty() && selectedTrxType.isNotEmpty()){
+                    if(trxAmount.isNotEmpty()  && trxTitle.isNotEmpty() && selectedTrxType.isNotEmpty() && selectedCategory.isNotEmpty()){
                         val trxItem = TrxItem(
                             title = trxTitle,
                             details = trxDetails,
                             date = selectedDate,
                             amount = trxAmount.toInt(),
-                            type = selectedTrxTypeBool
+                            type = selectedTrxTypeBool,
+                            category = selectedCategory
                         )
                         trxViewModel.inserTrx(trxItem)
                         onConfirm()

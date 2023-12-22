@@ -49,6 +49,7 @@ fun TrxItemDetails(trxItem: TrxItem, onDelete: () -> Unit, onClose: ()->Unit) {
                 BodyText(text = trxItem.details)
                 BodyText(text = trxItem.amount.toString())
                 BodyText(text = trxItem.date)
+                BodyText(text = trxItem.category)
                 BodyText(text = trxItem.type.toString())
             }
             Row(

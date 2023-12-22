@@ -1,7 +1,5 @@
 package com.example.money_management1.screens
 
-import android.content.Intent
-import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -37,14 +35,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.money_management1.LoginActivity
+import androidx.navigation.NavHostController
 import com.example.money_management1.R
 import com.example.money_management1.ui.theme.primaryColor
 import com.example.money_management1.ui.theme.whiteBackground
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SignUpScreen(context: ComponentActivity){
+fun SignUpScreen(navHostController: NavHostController){
 //    val context = LocalContext.current
     val image = painterResource(id = R.drawable.money_bag)
     val name = rememberSaveable {
@@ -187,9 +185,6 @@ fun SignUpScreen(context: ComponentActivity){
                 Spacer(modifier = Modifier.padding(10.dp))
                 Button(
                     onClick = {
-                        val intent = Intent(context,LoginActivity::class.java)
-                        context.startActivity(intent)
-                        context.finish()
                     },
                     modifier = Modifier
                         .fillMaxWidth(0.8f)

@@ -11,5 +11,6 @@ data class TrxItem(
     @ColumnInfo("details") var details: String,
     @ColumnInfo("date") var date: String,
     @ColumnInfo("amount") var amount: Int,
-    @ColumnInfo("type") val type: Boolean
+    @ColumnInfo("type") val type: Boolean,
+    @ColumnInfo("category") val category: String
 )
