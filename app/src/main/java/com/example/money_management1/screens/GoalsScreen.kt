@@ -33,6 +33,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -117,7 +118,7 @@ fun GoalsScreen(paddingValues: PaddingValues, savingItemViewModel: SavingItemVie
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         GoalCardText(text = "Completed")
-                        GoalCardText(text = savingItems.filter { it.isCompleted == true }.size.toString())
+                        GoalCardText(text = savingItems.filter { it.isCompleted }.size.toString())
                     }
                 }
             }
@@ -225,10 +226,13 @@ fun GoalsPager(savingItemViewModel: SavingItemViewModel) {
                             )
                         }
                     }
-                    val progress = (savingItems[page].current_amount/savingItems[page].req_amount)
+                    val progress = (savingItems[page].current_amount.toFloat()/savingItems[page].req_amount).toFloat()
+                    Log.d("Progress", progress.toString())
+                    Log.d("Cureent am", savingItems[page].current_amount.toString())
+                    Log.d("req am", savingItems[page].req_amount.toString())
                     Spacer(modifier = Modifier.height(10.dp))
-                    var currentProgress by remember { mutableStateOf(progress.toFloat())}
-                    LinearDeterminantProgressIndicator(currentProgress)
+                   // val currentProgress by remember { mutableFloatStateOf(progress.toFloat()) }
+                    LinearDeterminantProgressIndicator(progress)
                 }
             }
         }
@@ -237,6 +241,7 @@ fun GoalsPager(savingItemViewModel: SavingItemViewModel) {
 
 @Composable
 fun LinearDeterminantProgressIndicator(currentProgress: Float) {
+    Log.d("Progress", currentProgress.toString())
     LinearProgressIndicator(
         progress = currentProgress,
         modifier = Modifier
@@ -282,7 +287,7 @@ fun AddGoalDialog(savingItemViewModel: SavingItemViewModel, onValueChange: (Bool
             SavingTextField(onValueChange = {details = it}, label = "Details")
             AmountTextField(onValueChange = {requiredAmount = it}, label = "Amount")
            // SavingTextField(onValueChange = {imagePath = it}, label = "Image Path")
-            ImageSelector({imageUriString = it})
+            ImageSelector { imageUriString = it }
 
             Row(
                 horizontalArrangement = Arrangement.End,

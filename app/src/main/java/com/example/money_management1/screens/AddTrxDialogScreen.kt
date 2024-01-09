@@ -28,7 +28,6 @@ import com.example.money_management1.ui.theme.defaultColor
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddTrxDialogScreen(
     onConfirm: () -> Unit,
@@ -41,9 +40,6 @@ fun AddTrxDialogScreen(
         mutableStateOf("")
     }
     var trxDetails by rememberSaveable {
-        mutableStateOf("")
-    }
-    var trxType by rememberSaveable {
         mutableStateOf("")
     }
     var trxAmount by rememberSaveable {
@@ -71,13 +67,13 @@ fun AddTrxDialogScreen(
         mutableStateOf("Select Category")
     }
     //Income category variable
-    val incomeCategories = IncomeCategory.values().toList()
+    val incomeCategories = IncomeCategory.entries
     val incomeCategoryList = mutableListOf<String>()
     for (index in incomeCategories.indices){
         incomeCategoryList.add(incomeCategories[index].label)
     }
     //Expense Category variable
-    val expenseCategories = ExpenseCategory.values().toList()
+    val expenseCategories = ExpenseCategory.entries
     val expenseCategoryList = mutableListOf<String>()
     for (index in expenseCategories.indices){
         expenseCategoryList.add(expenseCategories[index].label)
@@ -156,7 +152,7 @@ fun AddTrxDialogScreen(
                                 selected = (type == selectedTrxType),
                                 onClick = {
                                     selectedTrxType = type
-                                    selectedTrxTypeBool = if(type == trxTypes[0]) true else false
+                                    selectedTrxTypeBool = type == trxTypes[0]
                                     activeCategorySelector = type
                                     selectedCategory = ""
                                     dropDownButtonText = "Select Category"
@@ -210,19 +206,6 @@ fun AddTrxDialogScreen(
         confirmButton = {
             Button(
                 onClick = {
-//                    if(selectedCategory == "Savings"){
-//                        val items = savingItemViewModel.allSavingItems.value
-//                        val item = SavingItem(
-//                            title = items!![0].title,
-//                            details = items[0].details,
-//                            req_amount = items[0].req_amount,
-//                            current_amount = items[0].current_amount+trxAmount.toInt(),
-//                            isCompleted = if(items[0].current_amount >= items[0].req_amount) true else false ,
-//                            imageUri = items[0].imageUri
-//                        )
-//                        Log.d("Saving","$trxAmount added")
-//                        savingItemViewModel.updateSavingItem(item)
-//                    }
                     //Save data to database
                     if(trxAmount.isNotEmpty()  && trxTitle.isNotEmpty() && selectedTrxType.isNotEmpty() && selectedCategory.isNotEmpty()){
                         val trxItem = TrxItem(
@@ -234,6 +217,50 @@ fun AddTrxDialogScreen(
                             category = selectedCategory
                         )
                         trxViewModel.inserTrx(trxItem)
+                        if(selectedCategory == "Savings"){
+                            val items = savingItemViewModel.allSavingItems.value //.value
+                            var indexToInsert = getIndex(items)
+                            Log.d("Index to  insert", indexToInsert.toString())
+                            var extraAmount = 0f
+                            val totalAmount = items!![indexToInsert!!].current_amount.toFloat() + trxAmount.toFloat()
+                            var amountTobeAdded = totalAmount
+                            var isCompleted = false
+                            if(totalAmount >= items[indexToInsert].req_amount){
+                                extraAmount = totalAmount - items[indexToInsert].req_amount
+                                amountTobeAdded = totalAmount - extraAmount
+                                isCompleted = true
+                            }
+
+//                            Log.d("Saving",items!![0].title)
+                            val item = SavingItem(
+                                id = items[indexToInsert].id,
+                                title = items[indexToInsert].title,
+                                details = items[indexToInsert].details,
+                                req_amount = items[indexToInsert].req_amount,
+                                current_amount = amountTobeAdded.toInt(),
+                                isCompleted = isCompleted,
+                                imageUri = items[indexToInsert].imageUri
+                            )
+                            Log.d("Saving","$amountTobeAdded added to index $indexToInsert")
+                            Log.d("Extra amount","$extraAmount ")
+                            savingItemViewModel.updateSavingItem(item)
+                            if (extraAmount.toInt() != 0){
+                                indexToInsert += 1
+                                if(indexToInsert <= (items.size - 1)){
+                                    val itemNext = SavingItem(
+                                        id = items[indexToInsert].id,
+                                        title = items[indexToInsert].title,
+                                        details = items[indexToInsert].details,
+                                        req_amount = items[indexToInsert].req_amount,
+                                        current_amount = extraAmount.toInt(),
+                                        isCompleted = isCompleted, //to be corrected
+                                        imageUri = items[indexToInsert].imageUri
+                                    )
+                                    Log.d("Extra amount added","$extraAmount added to index $indexToInsert")
+                                    savingItemViewModel.updateSavingItem(itemNext)
+                                }
+                            }
+                        }
                         onConfirm()
                     }
                     else Toast.makeText(context,"Fill in all fields",Toast.LENGTH_SHORT).show()
@@ -252,4 +279,17 @@ fun AddTrxDialogScreen(
             }
         }
     )
+}
+
+fun getIndex(items: List<SavingItem>?): Int?{
+    var pos: Int? = null
+    if (items != null){
+        for (index in items.indices) {
+            if (!items[index].isCompleted) {
+                pos = index
+                break
+            }
+        }
+    }
+    return pos
 }
