@@ -38,19 +38,19 @@ fun OverViewScreen(paddingValues: PaddingValues) {
         val colors = mutableListOf<Color>()
         for(i in 0..9){colors.add(randomColor())}
         //Variable for Expense Category
-        val expenseCategories = ExpenseCategory.values().toList()
+        val expenseCategories = ExpenseCategory.entries
         val expenseCategoryLabels = mutableListOf<String>()
         for (i in 0..9){ expenseCategoryLabels.add(expenseCategories[i].label) }
         val expenseCategoryValues = listOf( 40f, 25f, 35f, 30f, 50f, 34f, 32f,75f,94f,43f)
 
         //Variable for Income Category
-        val incomeCategories = IncomeCategory.values().toList()
+        val incomeCategories = IncomeCategory.entries
         val incomeCategoryLabels = mutableListOf<String>()
         for (i in 0..4){ incomeCategoryLabels.add(incomeCategories[i].label) }
         val incomeCategoryValues = listOf( 40f, 25f, 35f, 30f, 50f)
 
         //variable for grouped bar graph
-        val monthList = Month.values().toList()
+        val monthList = Month.entries
         val monthLabels = mutableListOf<String>()
         for(i in 0..11){ monthLabels.add(monthList[i].month)}
 

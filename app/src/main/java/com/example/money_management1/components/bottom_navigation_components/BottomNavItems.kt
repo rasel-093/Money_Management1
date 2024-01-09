@@ -22,10 +22,16 @@ object BottomNavItems {
             route = "goals"
         ),
         BottomNavItem(
-            label = "overview",
+            label = "Overview",
             unselectedIcon = R.drawable.overview,
             selectedIcon = R.drawable.overview,
             route = "overview"
+        ),
+        BottomNavItem(
+            label = "Tips",
+            unselectedIcon = R.drawable.tips,
+            selectedIcon = R.drawable.tips,
+            route = "tips"
         )
     )
 }

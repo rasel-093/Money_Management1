@@ -1,5 +1,6 @@
 package com.example.money_management1.components.bottom_navigation_components
 
+import TipsScreen
 import android.app.Application
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,10 +15,7 @@ import com.example.money_management1.model.savingmodel.SavingItemViewModel
 import com.example.money_management1.model.trxmodel.TrxViewModel
 import com.example.money_management1.screens.GoalsScreen
 import com.example.money_management1.screens.HomeScreen
-import com.example.money_management1.screens.LoginScreen
-import com.example.money_management1.screens.MyApp
 import com.example.money_management1.screens.OverViewScreen
-import com.example.money_management1.screens.SignUpScreen
 
 
 @Composable
@@ -44,7 +42,8 @@ fun NavHostContainer(
         composable("home"){ HomeScreen(innerPadding = padding, navController, trxViewModel, savingItemViewModel)}
         composable("goals"){ GoalsScreen(paddingValues = padding, savingItemViewModel)}
         composable("overview"){ OverViewScreen(paddingValues = padding)}
-        composable("myapp"){ MyApp(navController = navController , context = context )}
+        composable("tips"){TipsScreen(paddingValues = padding)}
+        //composable("myapp"){ MyApp(navController = navController , context = context )}
         //composable("loginscreen"){ LoginScreen(navController)}
         //composable("signupscreen"){ SignUpScreen(navController)}
     }
