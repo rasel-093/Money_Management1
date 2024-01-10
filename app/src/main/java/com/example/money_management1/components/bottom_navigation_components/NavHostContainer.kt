@@ -42,7 +42,7 @@ fun NavHostContainer(
         composable("home"){ HomeScreen(innerPadding = padding, navController, trxViewModel, savingItemViewModel)}
         composable("goals"){ GoalsScreen(paddingValues = padding, savingItemViewModel)}
         composable("overview"){ OverViewScreen(paddingValues = padding)}
-        composable("tips"){TipsScreen(paddingValues = padding)}
+        composable("tips"){TipsScreen(paddingValues = padding, savingItemViewModel, trxViewModel)}
         //composable("myapp"){ MyApp(navController = navController , context = context )}
         //composable("loginscreen"){ LoginScreen(navController)}
         //composable("signupscreen"){ SignUpScreen(navController)}

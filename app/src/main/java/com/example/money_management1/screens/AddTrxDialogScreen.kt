@@ -144,7 +144,7 @@ fun AddTrxDialogScreen(
                 }
                 Spacer(modifier = Modifier.height(8.dp))
 
-                //Income Expense radio buttona
+                //Income Expense radio button
                 Row {
                     trxTypes.forEach { type ->
                         Row(verticalAlignment = Alignment.CenterVertically) {
