@@ -22,5 +22,11 @@ class TrxRepository(
     suspend fun deleteAllTrx() {
         trxDao.deleteAll()
     }
+    suspend fun getEachExpenseAmount(trxType: String): Int?{
+        return trxDao.getEachExpenseAmount(trxType)
+    }
+    suspend fun getEachIncomeAmount(trxType: String): Int?{
+        return trxDao.getEachIncomeAmount(trxType)
+    }
 }
 

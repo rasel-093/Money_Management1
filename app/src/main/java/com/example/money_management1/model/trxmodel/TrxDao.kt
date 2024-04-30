@@ -22,4 +22,10 @@ interface TrxDao {
     suspend fun update(trxItem: TrxItem)
     @Query("DELETE FROM trxItem_table")
     suspend fun deleteAll()
+
+    @Query("SELECT SUM(amount) FROM trxItem_table WHERE category= :trxType")
+    suspend fun getEachExpenseAmount(trxType: String): Int?
+
+    @Query("SELECT SUM(amount) FROM trxItem_table WHERE category= :trxType")
+    suspend fun getEachIncomeAmount(trxType: String): Int?
 }

@@ -28,5 +28,18 @@ class TrxViewModel(application: Application): AndroidViewModel(application) {
     fun deleteAllTrx(){
         viewModelScope.launch { repository.deleteAllTrx() }
     }
+
+    fun getEachExpenseAmount(trxType: String, result: (Int?)->Unit){
+        viewModelScope.launch {
+            val amount = repository.getEachExpenseAmount(trxType)
+            result(amount)
+        }
+    }
+    fun getEachIncomeAmount(trxType: String, result: (Int?)->Unit){
+        viewModelScope.launch {
+            val amount = repository.getEachExpenseAmount(trxType)
+            result(amount)
+        }
+    }
 }
 

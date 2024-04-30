@@ -5,8 +5,11 @@ package com.example.money_management1.components.charts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.utils.DataUtils
@@ -15,6 +18,8 @@ import co.yml.charts.ui.barchart.GroupBarChart
 import co.yml.charts.ui.barchart.models.BarPlotData
 import co.yml.charts.ui.barchart.models.GroupBar
 import co.yml.charts.ui.barchart.models.GroupBarChartData
+import co.yml.charts.ui.barchart.models.drawBarGraph
+import co.yml.charts.ui.barchart.models.drawGroupBarGraph
 
 @Composable
 fun CustomGroupedBarChart(months: List<String>) {
@@ -54,6 +59,8 @@ fun CustomGroupedBarChart(months: List<String>) {
         .axisOffset(30.dp)
         .labelData { index -> (index * (maxRange / 10)).toString() }
         .build()
+
+
 
     val groupBarChartData = GroupBarChartData(
         barPlotData =   groupBarData,

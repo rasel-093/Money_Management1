@@ -18,7 +18,7 @@ import kotlin.random.Random
 @Composable
 fun CustomPieChart(labels: List<String>, values: List<Float>, colors: List<Color>) {
     val slices = mutableListOf<PieChartData.Slice>()
-    for (i in 0..labels.size-1){
+    for (i in labels.indices){
         slices.add(PieChartData.Slice(labels[i],values[i], colors[i]))
     }
     val pieChartData = PieChartData(
