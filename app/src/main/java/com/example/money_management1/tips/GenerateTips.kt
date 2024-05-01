@@ -3,7 +3,7 @@ package com.example.money_management1.tips
 import com.example.money_management1.model.trxmodel.TrxItem
 import java.util.Calendar
 
-fun generateTips(transactions: List<TrxItem>): List<String> {
+fun generateTips(transactions: List<TrxItem>): String {
     val currentDate = Calendar.getInstance()
     val currentMonth = currentDate.get(Calendar.MONTH) + 1
     val currentYear = currentDate.get(Calendar.YEAR)
@@ -37,7 +37,7 @@ fun generateTips(transactions: List<TrxItem>): List<String> {
     val spendingLimit = totalIncome * 0.7 //totalExpense + remainingBudget * 0.3 // Adjust as needed
     tips.add("Your suggested spending limit for the month is $$spendingLimit.")
 
-    tips.add("You have spended $totalExpense $")
+    tips.add("You have spent $totalExpense $")
     // Advise on monthly expenses
     val suggestedExpenseLimit = totalIncome * 0.7 // Adjust as needed
     if (totalExpense > suggestedExpenseLimit) {
@@ -56,6 +56,9 @@ fun generateTips(transactions: List<TrxItem>): List<String> {
     }
 
     // Add more tips based on your analysis
-
-    return tips
+    var finalTips = ""
+    tips.forEach {
+        finalTips += it
+    }
+    return finalTips
 }

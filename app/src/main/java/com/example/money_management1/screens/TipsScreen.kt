@@ -40,8 +40,8 @@ fun TipsScreen(
         ) {
             val transactions = trxViewModel.allTrx.observeAsState().value
             val tips = transactions?.let { generateTips(it) }
-            tips!!.forEach {
-                TipsRow(text = it)
+            if (tips != null) {
+                TipsRow(text = tips)
             }
         }
     }
