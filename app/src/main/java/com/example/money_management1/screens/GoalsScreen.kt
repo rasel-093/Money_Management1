@@ -109,7 +109,7 @@ fun GoalsScreen(paddingValues: PaddingValues, savingItemViewModel: SavingItemVie
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         GoalCardText(text = "In Progress")
-                        GoalCardText(text = savingItems.filter { it.current_amount > 0 }.size.toString())
+                        GoalCardText(text = savingItems.filter { !it.isCompleted }.size.toString())
                     }
                     Row(
                         modifier = Modifier

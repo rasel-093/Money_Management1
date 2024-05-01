@@ -206,6 +206,7 @@ fun AddTrxDialogScreen(
         confirmButton = {
             Button(
                 onClick = {
+                    val items = savingItemViewModel.allSavingItems.value
                     //Save data to database
                     if(trxAmount.isNotEmpty()  && trxTitle.isNotEmpty() && selectedTrxType.isNotEmpty() && selectedCategory.isNotEmpty()){
                         val trxItem = TrxItem(
@@ -217,47 +218,56 @@ fun AddTrxDialogScreen(
                             category = selectedCategory
                         )
                         trxViewModel.inserTrx(trxItem)
-                        if(selectedCategory == "Savings"){
-                            val items = savingItemViewModel.allSavingItems.value //.value
-                            var indexToInsert = getIndex(items)
-                            Log.d("Index to  insert", indexToInsert.toString())
-                            var extraAmount = 0f
-                            val totalAmount = items!![indexToInsert!!].current_amount.toFloat() + trxAmount.toFloat()
-                            var amountTobeAdded = totalAmount
-                            var isCompleted = false
-                            if(totalAmount >= items[indexToInsert].req_amount){
-                                extraAmount = totalAmount - items[indexToInsert].req_amount
-                                amountTobeAdded = totalAmount - extraAmount
-                                isCompleted = true
-                            }
+
+                        if (items != null) {
+                            if (items.isNotEmpty()){
+                                if(selectedCategory == "Savings"){
+                                    var indexToInsert = getIndex(items)
+                                    if(indexToInsert != null){
+                                        Log.d("Index to  insert", indexToInsert.toString())
+                                        var extraAmount = 0f
+                                        val totalAmount = items[indexToInsert].current_amount.toFloat() + trxAmount.toFloat()
+                                        var amountTobeAdded = totalAmount
+                                        var isCompleted = false
+                                        if(totalAmount >= items[indexToInsert].req_amount){
+                                            extraAmount = totalAmount - items[indexToInsert].req_amount
+                                            amountTobeAdded = totalAmount - extraAmount
+                                            isCompleted = true
+                                        }
 
 //                            Log.d("Saving",items!![0].title)
-                            val item = SavingItem(
-                                id = items[indexToInsert].id,
-                                title = items[indexToInsert].title,
-                                details = items[indexToInsert].details,
-                                req_amount = items[indexToInsert].req_amount,
-                                current_amount = amountTobeAdded.toInt(),
-                                isCompleted = isCompleted,
-                                imageUri = items[indexToInsert].imageUri
-                            )
-                            Log.d("Saving","$amountTobeAdded added to index $indexToInsert")
-                            Log.d("Extra amount","$extraAmount ")
-                            savingItemViewModel.updateSavingItem(item)
-                            if (extraAmount.toInt() != 0){
-                                indexToInsert += 1
-                                if(indexToInsert <= (items.size - 1)){
-                                    val itemNext = SavingItem(
-                                        id = items[indexToInsert].id,
-                                        title = items[indexToInsert].title,
-                                        details = items[indexToInsert].details,
-                                        req_amount = items[indexToInsert].req_amount,
-                                        current_amount = extraAmount.toInt(),
-                                        isCompleted = isCompleted, //to be corrected
-                                        imageUri = items[indexToInsert].imageUri
-                                    )
-                                    Log.d("Extra amount added","$extraAmount added to index $indexToInsert")
-                                    savingItemViewModel.updateSavingItem(itemNext)
+                                        val item = SavingItem(
+                                            id = items[indexToInsert].id,
+                                            title = items[indexToInsert].title,
+                                            details = items[indexToInsert].details,
+                                            req_amount = items[indexToInsert].req_amount,
+                                            current_amount = amountTobeAdded.toInt(),
+                                            isCompleted = isCompleted,
+                                            imageUri = items[indexToInsert].imageUri
+                                        )
+                                        Log.d("Saving","$amountTobeAdded added to index $indexToInsert")
+                                        Log.d("Extra amount","$extraAmount ")
+                                        savingItemViewModel.updateSavingItem(item)
+
+                                        if (extraAmount.toInt() != 0){
+                                            indexToInsert += 1
+                                            if(indexToInsert <= (items.size - 1)){
+                                                val itemNext = SavingItem(
+                                                    id = items[indexToInsert].id,
+                                                    title = items[indexToInsert].title,
+                                                    details = items[indexToInsert].details,
+                                                    req_amount = items[indexToInsert].req_amount,
+                                                    current_amount = extraAmount.toInt(),
+                                                    isCompleted = isCompleted, //to be corrected
+                                                    imageUri = items[indexToInsert].imageUri
+                                                )
+                                                Log.d("Extra amount added","$extraAmount added to index $indexToInsert")
+                                                savingItemViewModel.updateSavingItem(itemNext)
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    Toast.makeText(context, "No saving goal", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
