@@ -45,29 +45,30 @@ fun TrxItemDetails(trxItem: TrxItem, onDelete: () -> Unit, onClose: ()->Unit) {
                     .fillMaxWidth()
                     .padding(10.dp)
             ) {
+                val type = if (trxItem.type) "Income" else "Expense"
                 TitleText(text = trxItem.title)
                 BodyText(text = trxItem.details)
-                BodyText(text = trxItem.amount.toString())
+                BodyText(text = trxItem.amount.toString() + " Tk")
                 BodyText(text = trxItem.date)
-                BodyText(text = trxItem.category)
-                BodyText(text = trxItem.type.toString())
+                BodyText(text = "${trxItem.category}- $type ")
+               // BodyText(text = if (trxItem.type) "Income" else "Expense" )
             }
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                TextButton(
-                    onClick = onDelete,
-                    //modifier = Modifier.align(Alignment.End),
-                ) {
-                    Text(
-                        text = "Delete",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 18.sp,
-                        color = defaultColor
-                    )
-                }
+//                TextButton(
+//                    onClick = onDelete,
+//                    //modifier = Modifier.align(Alignment.End),
+//                ) {
+//                    Text(
+//                        text = "Delete",
+//                        fontWeight = FontWeight.Bold,
+//                        fontSize = 18.sp,
+//                        color = defaultColor
+//                    )
+//                }
                 TextButton(
                     onClick = onClose,
                     //modifier = Modifier.align(Alignment.End),
