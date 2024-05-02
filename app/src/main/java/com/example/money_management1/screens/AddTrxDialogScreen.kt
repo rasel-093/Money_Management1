@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import androidx.lifecycle.asFlow
 import co.yml.charts.common.extensions.isNotNull
 import com.example.money_management1.components.CustomDatePicker
 import com.example.money_management1.model.ExpenseCategory
@@ -29,6 +31,7 @@ import com.example.money_management1.model.trxmodel.TrxItem
 import com.example.money_management1.model.trxmodel.TrxViewModel
 import com.example.money_management1.tips.generateTips
 import com.example.money_management1.ui.theme.defaultColor
+import kotlinx.coroutines.flow.last
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -89,6 +92,8 @@ fun AddTrxDialogScreen(
     var selectedCategory by rememberSaveable {
         mutableStateOf("")
     }
+
+    val trxList = trxViewModel.allTrx.observeAsState()
 
     AlertDialog(
         onDismissRequest = {  },
@@ -223,11 +228,13 @@ fun AddTrxDialogScreen(
                             category = selectedCategory
                         )
                         trxViewModel.inserTrx(trxItem)
-                        val tips = trxViewModel.allTrx.value?.let {
-                           val tipsStr =  generateTips(it)
-                            TipsItem(tips = tipsStr)
+
+
+
+                        val tips = trxList.value?.let { TipsItem(tips = generateTips(it)) }
+                        if (tips != null) {
+                            tipsItemViewModel.insertTips(TipsItem(tips = tips.tips))
                         }
-                       tips?.let { tipsItemViewModel.insertTips(it) }
 
                         if (items != null) {
                             if (items.isNotEmpty()){

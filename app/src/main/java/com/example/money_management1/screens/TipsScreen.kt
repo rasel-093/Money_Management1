@@ -35,7 +35,7 @@ fun TipsScreen(
                 .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            tipsItemViewModel.allTips.observeAsState().value?.forEach {
+            tipsItemViewModel.allTips.observeAsState().value?.reversed()?.forEach {
                 TipsRow(text = it.tips)
             }
         }

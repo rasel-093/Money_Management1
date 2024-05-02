@@ -1,5 +1,6 @@
 package com.example.money_management1.tips
 
+import android.util.Log
 import com.example.money_management1.model.trxmodel.TrxItem
 import java.util.Calendar
 
@@ -20,7 +21,7 @@ fun generateTips(transactions: List<TrxItem>): String {
 
     val totalIncome = transactions.filter { it.type }.sumBy { it.amount }
     val totalExpense = transactions.filter { !it.type }.sumBy { it.amount }
-
+    Log.d("Total expense", totalExpense.toString())
     val tips = mutableListOf<String>()
 
     // Analyze monthly income and expenses
@@ -37,7 +38,7 @@ fun generateTips(transactions: List<TrxItem>): String {
     val spendingLimit = totalIncome * 0.7 //totalExpense + remainingBudget * 0.3 // Adjust as needed
     tips.add("Your suggested spending limit for the month is $$spendingLimit.")
 
-    tips.add("You have spent $totalExpense $")
+    tips.add("You have spent $totalExpense $. ")
     // Advise on monthly expenses
     val suggestedExpenseLimit = totalIncome * 0.7 // Adjust as needed
     if (totalExpense > suggestedExpenseLimit) {
