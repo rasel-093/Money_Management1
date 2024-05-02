@@ -26,6 +26,7 @@ import com.example.money_management1.components.TrxItemDetails
 import com.example.money_management1.components.cards.TrxHistoryHeadingCard
 import com.example.money_management1.components.cards.TrxHistoryItemCard
 import com.example.money_management1.model.savingmodel.SavingItemViewModel
+import com.example.money_management1.model.tips.TipsViewModel
 import com.example.money_management1.model.trxmodel.TrxViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,7 +35,8 @@ fun HomeScreen(
     innerPadding: PaddingValues,
     navController: NavHostController,
     trxViewModel: TrxViewModel,
-    savingItemViewModel: SavingItemViewModel
+    savingItemViewModel: SavingItemViewModel,
+    tipsItemViewModel: TipsViewModel
 ) {
     var isOpen by rememberSaveable{
         mutableStateOf(false)
@@ -87,7 +89,8 @@ fun HomeScreen(
                     onConfirm = {isOpen = false},
                     onCancel = {isOpen = false},
                     trxViewModel = trxViewModel,
-                    savingItemViewModel = savingItemViewModel
+                    savingItemViewModel = savingItemViewModel,
+                    tipsItemViewModel = tipsItemViewModel
                 )
             }
         }

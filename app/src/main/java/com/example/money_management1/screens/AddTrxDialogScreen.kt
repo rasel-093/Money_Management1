@@ -17,13 +17,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
+import co.yml.charts.common.extensions.isNotNull
 import com.example.money_management1.components.CustomDatePicker
 import com.example.money_management1.model.ExpenseCategory
 import com.example.money_management1.model.IncomeCategory
 import com.example.money_management1.model.savingmodel.SavingItem
 import com.example.money_management1.model.savingmodel.SavingItemViewModel
+import com.example.money_management1.model.tips.TipsItem
+import com.example.money_management1.model.tips.TipsViewModel
 import com.example.money_management1.model.trxmodel.TrxItem
 import com.example.money_management1.model.trxmodel.TrxViewModel
+import com.example.money_management1.tips.generateTips
 import com.example.money_management1.ui.theme.defaultColor
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -33,7 +37,8 @@ fun AddTrxDialogScreen(
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
     trxViewModel: TrxViewModel,
-    savingItemViewModel: SavingItemViewModel
+    savingItemViewModel: SavingItemViewModel,
+    tipsItemViewModel: TipsViewModel
 ) {
     val context = LocalContext.current
     var trxTitle by rememberSaveable {
@@ -218,6 +223,11 @@ fun AddTrxDialogScreen(
                             category = selectedCategory
                         )
                         trxViewModel.inserTrx(trxItem)
+                        val tips = trxViewModel.allTrx.value?.let {
+                           val tipsStr =  generateTips(it)
+                            TipsItem(tips = tipsStr)
+                        }
+                       tips?.let { tipsItemViewModel.insertTips(it) }
 
                         if (items != null) {
                             if (items.isNotEmpty()){

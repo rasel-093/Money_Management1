@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.money_management1.model.savingmodel.SavingItemViewModel
+import com.example.money_management1.model.tips.TipsViewModel
 import com.example.money_management1.model.trxmodel.TrxViewModel
 import com.example.money_management1.screens.GoalsScreen
 import com.example.money_management1.screens.HomeScreen
@@ -38,11 +39,22 @@ fun NavHostContainer(
             }
         }
     )
+
+    val tipsItemViewModel: TipsViewModel = viewModel(
+        factory = object : ViewModelProvider.Factory{
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return TipsViewModel(context as Application) as  T
+            }
+        }
+    )
+
+
+
     NavHost(navController = navController, startDestination = "home" ){
-        composable("home"){ HomeScreen(innerPadding = padding, navController, trxViewModel, savingItemViewModel)}
+        composable("home"){ HomeScreen(innerPadding = padding, navController, trxViewModel, savingItemViewModel ,tipsItemViewModel)}
         composable("goals"){ GoalsScreen(paddingValues = padding, savingItemViewModel)}
         composable("overview"){ OverViewScreen(paddingValues = padding, trxViewModel)}
-        composable("tips"){TipsScreen(paddingValues = padding, savingItemViewModel, trxViewModel)}
+        composable("tips"){TipsScreen(paddingValues = padding, tipsItemViewModel)}
         //composable("myapp"){ MyApp(navController = navController , context = context )}
         //composable("loginscreen"){ LoginScreen(navController)}
         //composable("signupscreen"){ SignUpScreen(navController)}
